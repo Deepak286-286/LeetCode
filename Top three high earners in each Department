@@ -1,0 +1,9 @@
+select d.name as Department,a.name as Employee,a.salary from (select t.name,t.salary,t.departmentid from  ( 
+
+select dense_rank() over( partition by departmentid order by salary desc) as Denserank
+,e.* from 
+employee e ) t
+where t.denserank<4 
+) a
+join Department d
+on d.id=a.departmentid
